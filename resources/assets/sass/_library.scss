@@ -1,0 +1,74 @@
+.library {
+	z-index: 10;
+	width: 100%;
+	height: 100vh;
+	position: fixed;
+	top: 0;
+	left: 0;
+
+	&-cover {
+
+	}
+
+	&-modal {
+		width: 100%;
+		height: 100%;
+		background: transparent;
+	}
+
+	&-tab {
+		height: 100%;
+		width: 100%;
+	}
+
+	&-header {
+		width: 100%;
+		height: 50px;
+		background-color: $modal-content-bg;
+		position: absolute;
+		top: 0px;
+		left: 0px;
+		border-bottom: 1px solid $modal-content-border-color;
+	}
+
+	&-body {
+		padding: 60px 5px;
+		background-color: rgba($modal-content-bg, 0.95);
+		height: 100%;
+		width: 100%;
+	}
+
+	&-footer {
+		height: 50px;
+		width: 100%;
+		background-color: $modal-content-bg;
+		position: absolute;
+		bottom: 0px;
+		left: 0px;
+		border-top: 1px solid $modal-content-border-color;
+	}
+
+	&-close {
+		position: absolute;
+		top: 5px;
+		right: 5px;
+		content: '×';
+		font-size: 30px;
+		height: 40px;
+	    line-height: 40px;
+	    width: 40px;
+	    text-align: center;
+	    cursor: pointer;
+	}
+
+	&-file {
+		float: left;
+		width: 110px;
+		padding: 5px;
+
+
+		&-name {
+
+		}
+	}
+}
