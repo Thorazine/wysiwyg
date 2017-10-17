@@ -43239,7 +43239,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
 
 
 Vue.component('vue-dropzone', __webpack_require__(48));
@@ -43249,11 +43248,12 @@ Vue.component('vue-cropper', __WEBPACK_IMPORTED_MODULE_1_vue_cropperjs___default
 /* harmony default export */ __webpack_exports__["default"] = ({
 	data: function data() {
 		return {
+			test: true,
 			visible: false,
 			tab: 2,
 			editor: null,
-			imgSrc: '',
-			cropImg: '',
+			imgSrc: 'http://lorempixel.com/2000/1000',
+			cropImg: 'http://lorempixel.com/2000/1000',
 			token: $('meta[name="csrf-token"]').attr('content'),
 			dzFiles: [{
 				filename: 'Some name',
@@ -43599,6 +43599,7 @@ var CropperComponent = _vue2.default.extend({
 var VueCropper = _vue2.default.component('vue-cropper', CropperComponent);
 
 exports.default = VueCropper;
+
 
 /***/ }),
 /* 50 */
@@ -47449,17 +47450,16 @@ var render = function() {
                         _c("vue-cropper", {
                           ref: "cropper",
                           attrs: {
-                            guides: "{true}",
-                            "view-mode": "{2}",
+                            guides: true,
+                            "view-mode": 2,
                             "drag-mode": "crop",
-                            "auto-crop-area": "{0.5}",
-                            "min-container-width": "{250}",
-                            "min-container-height": "{180}",
-                            background: "{true}",
-                            rotatable: "{true}",
-                            src: "{this.imgSrc}",
-                            alt: "Source Image",
-                            cropmove: "{this.cropImage}"
+                            "auto-crop-area": 0.5,
+                            "min-container-width": 250,
+                            "min-container-height": 180,
+                            background: true,
+                            rotatable: true,
+                            src: "imgSrc",
+                            alt: "Source Image"
                           }
                         })
                       ],

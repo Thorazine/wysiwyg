@@ -37,18 +37,17 @@
 				        </div>
 				    	<div class="library-body">
 				    		<vue-cropper
-		                        ref='cropper'
-		                        guides={true}
-		                        view-mode={2}
+		                        ref="cropper"
+		                        :guides="true"
+		                        :view-mode="2"
 		                        drag-mode="crop"
-		                        auto-crop-area={0.5}
-		                        min-container-width={250}
-		                        min-container-height={180}
-		                        background={true}
-		                        rotatable={true}
-		                        src={this.imgSrc}
-		                        alt="Source Image"
-		                        cropmove={this.cropImage}>
+		                        :auto-crop-area="0.5"
+		                        :min-container-width="250"
+		                        :min-container-height="180"
+		                        :background="true"
+		                        :rotatable="true"
+		                        src="imgSrc"
+		                        alt="Source Image">
 		                    </vue-cropper>
 						</div>
 						<div class="library-footer"></div>
@@ -68,11 +67,12 @@
     export default {
     	data: function() {
     		return {
+    			test: true,
     			visible: false,
     			tab: 2,
     			editor: null,
-    			imgSrc: '',
-	            cropImg: '',
+    			imgSrc: 'http://lorempixel.com/2000/1000',
+	            cropImg: 'http://lorempixel.com/2000/1000',
     			token: $('meta[name="csrf-token"]').attr('content'),
     			dzFiles: [
     				{
