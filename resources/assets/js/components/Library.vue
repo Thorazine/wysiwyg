@@ -31,27 +31,39 @@
 				    	<div class="library-header">
 				    		<input type="file" name="image" accept="image/*"
     		                    style="font-size: 1.2em; padding: 10px 0;"
-    		                    on-change={this.setImage}
+    		                    v-on:change="setImage"
     		                />
 				        	<div class="library-close" v-on:click="close()">&times;</div>
 				        </div>
-				    	<div class="library-body">
+				    	<div class="library-body library-body-full">
 				    		<vue-cropper
-		                        ref='cropper'
-		                        guides={true}
-		                        view-mode={2}
+		                        ref="cropper"
+		                        :guides="true"
+		                        :view-mode="1"
+		                        :check-orientation="false"
+						        :check-cross-origin="false"
 		                        drag-mode="crop"
-		                        auto-crop-area={0.5}
-		                        min-container-width={250}
-		                        min-container-height={180}
-		                        background={true}
-		                        rotatable={true}
-		                        src={this.imgSrc}
-		                        alt="Source Image"
-		                        cropmove={this.cropImage}>
+		                        :auto-crop-area="1"
+		                        :min-container-width="browserWidth()"
+		                        :min-container-height="browserHeight()"
+		                        :background="true"
+		                        :rotatable="true"
+		                        :aspect-ratio="16/9"
+		                        src="imgSrc"
+		                        alt="Source Image">
 		                    </vue-cropper>
 						</div>
-						<div class="library-footer"></div>
+						<div class="library-footer">
+							<ul class="list-unstyled list-horizontal">
+								<li>
+									<button v-on:click="cropperRotateLeft()"><i class="fa fa-undo"></i></button>
+								</li>
+								<li class="divider"></li>
+								<li>
+									<button v-on:click="cropperRotateRight()"><i class="fa fa-repeat"></i></button>
+								</li>
+							</ul>
+						</div>
 				    </div>
 				</transition>
 		    </div>
@@ -68,11 +80,12 @@
     export default {
     	data: function() {
     		return {
+    			test: true,
     			visible: false,
     			tab: 2,
     			editor: null,
-    			imgSrc: '',
-	            cropImg: '',
+    			imgSrc: 'http://lorempixel.com/2000/1000',
+	            cropImg: null,
     			token: $('meta[name="csrf-token"]').attr('content'),
     			dzFiles: [
     				{
@@ -142,9 +155,22 @@
 	            // get image data for post processing, e.g. upload or setting image src
 	            this.cropImg = this.$refs.cropper.getCroppedCanvas().toDataURL();
 	        },
-	        rotate () {
+	        cropperRotateLeft: function () {
 	            // guess what this does :)
-	            this.$refs.cropper.rotate(90);
+	            this.$refs.cropper.rotate(-1);
+	        },
+	        cropperRotateRight: function () {
+	            // guess what this does :)
+	            this.$refs.cropper.rotate(1);
+	        },
+	        cropperReset: function() {
+	        	this.$refs.cropper.reset();
+	        },
+	        browserWidth: function() {
+	        	return $(document).width();
+	        },
+	        browserHeight: function() {
+	        	return $(document).height() - 100;
 	        }
     	},
         mounted() {

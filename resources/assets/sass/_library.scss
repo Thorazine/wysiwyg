@@ -19,6 +19,7 @@
 	&-tab {
 		height: 100%;
 		width: 100%;
+
 	}
 
 	&-header {
@@ -36,6 +37,10 @@
 		background-color: rgba($modal-content-bg, 0.95);
 		height: 100%;
 		width: 100%;
+
+		&-full {
+			padding: 50px 0;
+		}
 	}
 
 	&-footer {
