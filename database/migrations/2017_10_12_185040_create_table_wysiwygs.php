@@ -15,7 +15,7 @@ class CreateTableWysiwygs extends Migration
     {
         Schema::create('wysiwygs', function (Blueprint $table) {
             $table->increments('id');
-            $table->text('text');
+            $table->text('content');
             $table->timestamps();
         });
     }
