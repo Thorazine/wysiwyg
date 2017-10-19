@@ -43251,7 +43251,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
 
 
 Vue.component('vue-dropzone', __webpack_require__(48));
@@ -43263,10 +43262,12 @@ Vue.component('vue-cropper', __WEBPACK_IMPORTED_MODULE_1_vue_cropperjs___default
 		return {
 			test: true,
 			visible: false,
-			tab: 2,
+			tab: 1,
 			editor: null,
-			imgSrc: 'http://lorempixel.com/2000/1000',
+			imgSrc: null,
 			cropImg: null,
+			scaleX: 1,
+			scaleY: 1,
 			token: $('meta[name="csrf-token"]').attr('content'),
 			dzFiles: [{
 				filename: 'Some name',
@@ -43305,30 +43306,33 @@ Vue.component('vue-cropper', __WEBPACK_IMPORTED_MODULE_1_vue_cropperjs___default
 			this.close();
 		},
 		dzSuccess: function dzSuccess() {},
-		setImage: function setImage(e) {
-			var _this = this;
-
-			var file = e.target.files[0];
-
-			if (!file.type.includes('image/')) {
-				alert('Please select an image file');
-				return;
-			}
-
-			if (typeof FileReader === 'function') {
-				var reader = new FileReader();
-
-				reader.onload = function (event) {
-					_this.imgSrc = event.target.result;
-					// rebuild cropperjs with the updated source
-					_this.$refs.cropper.replace(event.target.result);
-				};
-
-				reader.readAsDataURL(file);
-			} else {
-				alert('Sorry, FileReader API not supported');
-			}
+		setImage: function setImage(url) {
+			this.tabSwitch(2);
+			this.imgSrc = url;
+			this.$refs.cropper.replace(this.imgSrc);
 		},
+		// setImage (e) {
+		//        const file = e.target.files[0];
+
+		//        if (!file.type.includes('image/')) {
+		//            alert('Please select an image file');
+		//            return;
+		//        }
+
+		//        if (typeof FileReader === 'function') {
+		//            const reader = new FileReader();
+
+		//            reader.onload = (event) => {
+		//                this.imgSrc = event.target.result;
+		//                // rebuild cropperjs with the updated source
+		//                this.$refs.cropper.replace(event.target.result);
+		//            };
+
+		//            reader.readAsDataURL(file);
+		//        } else {
+		//            alert('Sorry, FileReader API not supported');
+		//        }
+		//    },
 		cropImage: function cropImage() {
 			// get image data for post processing, e.g. upload or setting image src
 			this.cropImg = this.$refs.cropper.getCroppedCanvas().toDataURL();
@@ -43342,14 +43346,22 @@ Vue.component('vue-cropper', __WEBPACK_IMPORTED_MODULE_1_vue_cropperjs___default
 			// guess what this does :)
 			this.$refs.cropper.rotate(1);
 		},
+		flipHorizontal: function flipHorizontal() {
+			this.scaleX = this.scaleX == 1 ? -1 : 1;
+			this.$refs.cropper.scaleX(this.scaleX);
+		},
+		flipVertical: function flipVertical() {
+			this.scaleY = this.scaleY == 1 ? -1 : 1;
+			this.$refs.cropper.scaleY(this.scaleY);
+		},
 		cropperReset: function cropperReset() {
 			this.$refs.cropper.reset();
 		},
 		browserWidth: function browserWidth() {
-			return $(document).width();
+			return $(window).width();
 		},
 		browserHeight: function browserHeight() {
-			return $(document).height() - 100;
+			return $(window).height() - 100;
 		}
 	},
 	mounted: function mounted() {
@@ -43626,6 +43638,7 @@ var CropperComponent = _vue2.default.extend({
 var VueCropper = _vue2.default.component('vue-cropper', CropperComponent);
 
 exports.default = VueCropper;
+
 
 /***/ }),
 /* 50 */
@@ -47397,7 +47410,7 @@ var render = function() {
                           attrs: {
                             id: "myVueDropzone",
                             url: "https://httpbin.org/post",
-                            "use-font-awesome": "true"
+                            "use-font-awesome": true
                           },
                           on: { "vdropzone-success": _vm.dzSuccess }
                         },
@@ -47413,7 +47426,7 @@ var render = function() {
                                 attrs: { src: file.thumb },
                                 on: {
                                   click: function($event) {
-                                    _vm.openCropper(file)
+                                    _vm.setImage(file.full)
                                   }
                                 }
                               }),
@@ -47442,19 +47455,6 @@ var render = function() {
               _vm.tab == 2
                 ? _c("div", { staticClass: "library-tab" }, [
                     _c("div", { staticClass: "library-header" }, [
-                      _c("input", {
-                        staticStyle: {
-                          "font-size": "1.2em",
-                          padding: "10px 0"
-                        },
-                        attrs: {
-                          type: "file",
-                          name: "image",
-                          accept: "image/*"
-                        },
-                        on: { change: _vm.setImage }
-                      }),
-                      _vm._v(" "),
                       _c(
                         "div",
                         {
@@ -47475,19 +47475,13 @@ var render = function() {
                       [
                         _c("vue-cropper", {
                           ref: "cropper",
+                          staticClass: "cropper",
                           attrs: {
-                            guides: true,
                             "view-mode": 1,
                             "check-orientation": false,
                             "check-cross-origin": false,
-                            "drag-mode": "crop",
                             "auto-crop-area": 1,
-                            "min-container-width": _vm.browserWidth(),
-                            "min-container-height": _vm.browserHeight(),
-                            background: true,
-                            rotatable: true,
                             "aspect-ratio": 16 / 9,
-                            src: "imgSrc",
                             alt: "Source Image"
                           }
                         })
@@ -47496,41 +47490,71 @@ var render = function() {
                     ),
                     _vm._v(" "),
                     _c("div", { staticClass: "library-footer" }, [
-                      _c(
-                        "ul",
-                        { staticClass: "list-unstyled list-horizontal" },
-                        [
-                          _c("li", [
-                            _c(
-                              "button",
-                              {
-                                on: {
-                                  click: function($event) {
-                                    _vm.cropperRotateLeft()
-                                  }
-                                }
-                              },
-                              [_c("i", { staticClass: "fa fa-undo" })]
-                            )
-                          ]),
-                          _vm._v(" "),
-                          _c("li", { staticClass: "divider" }),
-                          _vm._v(" "),
-                          _c("li", [
-                            _c(
-                              "button",
-                              {
-                                on: {
-                                  click: function($event) {
-                                    _vm.cropperRotateRight()
-                                  }
-                                }
-                              },
-                              [_c("i", { staticClass: "fa fa-repeat" })]
-                            )
-                          ])
-                        ]
-                      )
+                      _vm.imgSrc
+                        ? _c(
+                            "ul",
+                            { staticClass: "list-unstyled list-horizontal" },
+                            [
+                              _c("li", [
+                                _c(
+                                  "button",
+                                  {
+                                    on: {
+                                      click: function($event) {
+                                        _vm.cropperRotateLeft()
+                                      }
+                                    }
+                                  },
+                                  [_c("i", { staticClass: "fa fa-undo" })]
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c("li", [
+                                _c(
+                                  "button",
+                                  {
+                                    on: {
+                                      click: function($event) {
+                                        _vm.cropperRotateRight()
+                                      }
+                                    }
+                                  },
+                                  [_c("i", { staticClass: "fa fa-repeat" })]
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c("li", { staticClass: "divider" }),
+                              _vm._v(" "),
+                              _c("li", [
+                                _c(
+                                  "button",
+                                  {
+                                    on: {
+                                      click: function($event) {
+                                        _vm.flipVertical()
+                                      }
+                                    }
+                                  },
+                                  [_c("i", { staticClass: "fa fa-arrows-v" })]
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c("li", [
+                                _c(
+                                  "button",
+                                  {
+                                    on: {
+                                      click: function($event) {
+                                        _vm.flipHorizontal()
+                                      }
+                                    }
+                                  },
+                                  [_c("i", { staticClass: "fa fa-arrows-h" })]
+                                )
+                              ])
+                            ]
+                          )
+                        : _vm._e()
                     ])
                   ])
                 : _vm._e()

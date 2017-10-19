@@ -4,18 +4,19 @@
 
 		li {
 			display: inline-block;
+			margin-right: 2px;
 
 			&.divider {
-				width: 20px;
+				width: 0px;
 				height: 28px;
 				position: relative;
 
 				&:after {
 					content: ' ';
-					border: 1px solid #CCC;
+					border-left: 1px solid #CCC;
 					position: absolute;
 					top: 10px;
-					left: 9px;
+					left: 0px;
 					height: 27px;
 				}
 			}

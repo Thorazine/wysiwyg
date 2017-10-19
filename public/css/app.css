@@ -8356,20 +8356,21 @@ button.close {
 
 .list-horizontal li {
   display: inline-block;
+  margin-right: 2px;
 }
 
 .list-horizontal li.divider {
-  width: 20px;
+  width: 0px;
   height: 28px;
   position: relative;
 }
 
 .list-horizontal li.divider:after {
   content: ' ';
-  border: 1px solid #CCC;
+  border-left: 1px solid #CCC;
   position: absolute;
   top: 10px;
-  left: 9px;
+  left: 0px;
   height: 27px;
 }
 
@@ -8441,6 +8442,15 @@ button.close {
   float: left;
   width: 110px;
   padding: 5px;
+}
+
+.cropper > img {
+  max-height: calc(100vh - 100px);
+}
+
+.mce-tinymce {
+  -webkit-box-sizing: border-box !important;
+          box-sizing: border-box !important;
 }
 
 .fade-enter-active,

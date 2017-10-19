@@ -11,12 +11,12 @@
 			        		class="library-body"
 			        		id="myVueDropzone"
 			        		url="https://httpbin.org/post"
-			        		use-font-awesome="true"
+			        		:use-font-awesome="true"
 			        		v-on:vdropzone-success="dzSuccess">
 					        <input type="hidden" name="_token" :value="token">
 
 					        <div class="library-file" v-for="file in dzFiles">
-					        	<img :src="file.thumb" v-on:click="openCropper(file)">
+					        	<img :src="file.thumb" v-on:click="setImage(file.full)">
 					        	<div class="library-file-name">
 					        		{{ file.name }}
 					        	</div>
@@ -29,38 +29,37 @@
 				<transition>
 				    <div class="library-tab" v-if="tab == 2">
 				    	<div class="library-header">
-				    		<input type="file" name="image" accept="image/*"
+				    		<!-- <input type="file" name="image" accept="image/*"
     		                    style="font-size: 1.2em; padding: 10px 0;"
     		                    v-on:change="setImage"
-    		                />
+    		                /> -->
 				        	<div class="library-close" v-on:click="close()">&times;</div>
 				        </div>
 				    	<div class="library-body library-body-full">
-				    		<vue-cropper
+				    		<vue-cropper class="cropper"
 		                        ref="cropper"
-		                        :guides="true"
 		                        :view-mode="1"
 		                        :check-orientation="false"
 						        :check-cross-origin="false"
-		                        drag-mode="crop"
 		                        :auto-crop-area="1"
-		                        :min-container-width="browserWidth()"
-		                        :min-container-height="browserHeight()"
-		                        :background="true"
-		                        :rotatable="true"
 		                        :aspect-ratio="16/9"
-		                        src="imgSrc"
 		                        alt="Source Image">
 		                    </vue-cropper>
 						</div>
 						<div class="library-footer">
-							<ul class="list-unstyled list-horizontal">
+							<ul class="list-unstyled list-horizontal" v-if="imgSrc">
 								<li>
 									<button v-on:click="cropperRotateLeft()"><i class="fa fa-undo"></i></button>
 								</li>
-								<li class="divider"></li>
 								<li>
 									<button v-on:click="cropperRotateRight()"><i class="fa fa-repeat"></i></button>
+								</li>
+								<li class="divider"></li>
+								<li>
+									<button v-on:click="flipVertical()"><i class="fa fa-arrows-v"></i></button>
+								</li>
+								<li>
+									<button v-on:click="flipHorizontal()"><i class="fa fa-arrows-h"></i></button>
 								</li>
 							</ul>
 						</div>
@@ -82,10 +81,12 @@
     		return {
     			test: true,
     			visible: false,
-    			tab: 2,
+    			tab: 1,
     			editor: null,
-    			imgSrc: 'http://lorempixel.com/2000/1000',
+    			imgSrc: null,
 	            cropImg: null,
+	            scaleX: 1,
+	            scaleY: 1,
     			token: $('meta[name="csrf-token"]').attr('content'),
     			dzFiles: [
     				{
@@ -129,28 +130,33 @@
     		dzSuccess: function() {
 
     		},
-    		setImage (e) {
-	            const file = e.target.files[0];
+    		setImage: function(url) {
+    			this.tabSwitch(2);
+    			this.imgSrc = url;
+    			this.$refs.cropper.replace(this.imgSrc);
+    		},
+    		// setImage (e) {
+	     //        const file = e.target.files[0];
 
-	            if (!file.type.includes('image/')) {
-	                alert('Please select an image file');
-	                return;
-	            }
+	     //        if (!file.type.includes('image/')) {
+	     //            alert('Please select an image file');
+	     //            return;
+	     //        }
 
-	            if (typeof FileReader === 'function') {
-	                const reader = new FileReader();
+	     //        if (typeof FileReader === 'function') {
+	     //            const reader = new FileReader();
 
-	                reader.onload = (event) => {
-	                    this.imgSrc = event.target.result;
-	                    // rebuild cropperjs with the updated source
-	                    this.$refs.cropper.replace(event.target.result);
-	                };
+	     //            reader.onload = (event) => {
+	     //                this.imgSrc = event.target.result;
+	     //                // rebuild cropperjs with the updated source
+	     //                this.$refs.cropper.replace(event.target.result);
+	     //            };
 
-	                reader.readAsDataURL(file);
-	            } else {
-	                alert('Sorry, FileReader API not supported');
-	            }
-	        },
+	     //            reader.readAsDataURL(file);
+	     //        } else {
+	     //            alert('Sorry, FileReader API not supported');
+	     //        }
+	     //    },
 	        cropImage () {
 	            // get image data for post processing, e.g. upload or setting image src
 	            this.cropImg = this.$refs.cropper.getCroppedCanvas().toDataURL();
@@ -163,14 +169,22 @@
 	            // guess what this does :)
 	            this.$refs.cropper.rotate(1);
 	        },
+	        flipHorizontal: function() {
+	        	this.scaleX = (this.scaleX == 1) ? -1 : 1;
+	        	this.$refs.cropper.scaleX(this.scaleX);
+	        },
+	        flipVertical: function() {
+	        	this.scaleY = (this.scaleY == 1) ? -1 : 1;
+	        	this.$refs.cropper.scaleY(this.scaleY);
+	        },
 	        cropperReset: function() {
 	        	this.$refs.cropper.reset();
 	        },
 	        browserWidth: function() {
-	        	return $(document).width();
+	        	return $(window).width();
 	        },
 	        browserHeight: function() {
-	        	return $(document).height() - 100;
+	        	return $(window).height() - 100;
 	        }
     	},
         mounted() {
