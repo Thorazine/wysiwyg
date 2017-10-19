@@ -43,6 +43,7 @@
 						        :check-cross-origin="false"
 		                        :auto-crop-area="1"
 		                        :aspect-ratio="16/9"
+		                        :src="this.imgSrc"
 		                        alt="Source Image">
 		                    </vue-cropper>
 						</div>
@@ -56,10 +57,10 @@
 								</li>
 								<li class="divider"></li>
 								<li>
-									<button v-on:click="flipVertical()"><i class="fa fa-arrows-v"></i></button>
+									<button v-on:click="cropperFlipVertical()"><i class="fa fa-arrows-v"></i></button>
 								</li>
 								<li>
-									<button v-on:click="flipHorizontal()"><i class="fa fa-arrows-h"></i></button>
+									<button v-on:click="cropperFlipHorizontal()"><i class="fa fa-arrows-h"></i></button>
 								</li>
 							</ul>
 						</div>
@@ -92,14 +93,14 @@
     				{
     					filename: 'Some name',
     					thumb: 'http://lorempixel.com/100/100',
-    					full: 'http://lorempixel.com/2000/1000',
+    					full: 'http://localhost/wysiwyg/public/uploads/hd1.jpg',
     					id: 1,
     					type: 'image',
     				},
     				{
     					filename: 'Some name',
     					thumb: 'http://lorempixel.com/100/100',
-    					full: 'http://lorempixel.com/2000/1000',
+    					full: 'http://localhost/wysiwyg/public/uploads/nature10.jpg',
     					id: 1,
     					type: 'image',
     				},
@@ -107,56 +108,40 @@
     		}
     	},
     	methods: {
+    		// popup + tabs
     		open: function(event) {
+    			this.tabSwitch(1);
     			this.editor = event.editor;
 				this.visible = true;
 			},
 			close: function() {
 				this.visible = false;
 			},
-			openCropper: function() {
-				// cropper(document.getElementById('cropper'), {
-				// 	aspectRatio: 16 / 9,
-				// });
-				this.tabSwitch(2);
-			},
 			tabSwitch: function(tabNr) {
 				this.tab = tabNr;
+			},
+
+    		// dropzone
+    		dzSuccess: function() {
+
+    		},
+
+			// cropper
+			openCropper: function() {
+				this.tabSwitch(2);
 			},
 			insert: function(file) {
 				this.editor.insertContent('<img class="wysiwyg-image-'+file.id+'" src="'+file.full+'">');
 				this.close();
     		},
-    		dzSuccess: function() {
-
-    		},
     		setImage: function(url) {
     			this.tabSwitch(2);
     			this.imgSrc = url;
+	    		this.$refs.cropper.replace(url);
+    		},
+    		manual() {
     			this.$refs.cropper.replace(this.imgSrc);
     		},
-    		// setImage (e) {
-	     //        const file = e.target.files[0];
-
-	     //        if (!file.type.includes('image/')) {
-	     //            alert('Please select an image file');
-	     //            return;
-	     //        }
-
-	     //        if (typeof FileReader === 'function') {
-	     //            const reader = new FileReader();
-
-	     //            reader.onload = (event) => {
-	     //                this.imgSrc = event.target.result;
-	     //                // rebuild cropperjs with the updated source
-	     //                this.$refs.cropper.replace(event.target.result);
-	     //            };
-
-	     //            reader.readAsDataURL(file);
-	     //        } else {
-	     //            alert('Sorry, FileReader API not supported');
-	     //        }
-	     //    },
 	        cropImage () {
 	            // get image data for post processing, e.g. upload or setting image src
 	            this.cropImg = this.$refs.cropper.getCroppedCanvas().toDataURL();
@@ -169,17 +154,19 @@
 	            // guess what this does :)
 	            this.$refs.cropper.rotate(1);
 	        },
-	        flipHorizontal: function() {
+	        cropperFlipHorizontal: function() {
 	        	this.scaleX = (this.scaleX == 1) ? -1 : 1;
 	        	this.$refs.cropper.scaleX(this.scaleX);
 	        },
-	        flipVertical: function() {
+	        cropperFlipVertical: function() {
 	        	this.scaleY = (this.scaleY == 1) ? -1 : 1;
 	        	this.$refs.cropper.scaleY(this.scaleY);
 	        },
 	        cropperReset: function() {
 	        	this.$refs.cropper.reset();
 	        },
+
+	        // common
 	        browserWidth: function() {
 	        	return $(window).width();
 	        },

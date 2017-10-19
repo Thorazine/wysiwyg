@@ -8404,7 +8404,7 @@ button.close {
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
 }
 
-.library-body {
+.library-body.dropzone {
   padding: 60px 5px;
   background-color: rgba(255, 255, 255, 0.95);
   height: 100%;
@@ -8445,7 +8445,7 @@ button.close {
 }
 
 .cropper > img {
-  max-height: calc(100vh - 100px);
+  height: calc(100vh - 100px);
 }
 
 .mce-tinymce {

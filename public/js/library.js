@@ -43251,6 +43251,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 
 Vue.component('vue-dropzone', __webpack_require__(48));
@@ -43272,67 +43273,51 @@ Vue.component('vue-cropper', __WEBPACK_IMPORTED_MODULE_1_vue_cropperjs___default
 			dzFiles: [{
 				filename: 'Some name',
 				thumb: 'http://lorempixel.com/100/100',
-				full: 'http://lorempixel.com/2000/1000',
+				full: 'http://localhost/wysiwyg/public/uploads/hd1.jpg',
 				id: 1,
 				type: 'image'
 			}, {
 				filename: 'Some name',
 				thumb: 'http://lorempixel.com/100/100',
-				full: 'http://lorempixel.com/2000/1000',
+				full: 'http://localhost/wysiwyg/public/uploads/nature10.jpg',
 				id: 1,
 				type: 'image'
 			}]
 		};
 	},
 	methods: {
+		// popup + tabs
 		open: function open(event) {
+			this.tabSwitch(1);
 			this.editor = event.editor;
 			this.visible = true;
 		},
 		close: function close() {
 			this.visible = false;
 		},
-		openCropper: function openCropper() {
-			// cropper(document.getElementById('cropper'), {
-			// 	aspectRatio: 16 / 9,
-			// });
-			this.tabSwitch(2);
-		},
 		tabSwitch: function tabSwitch(tabNr) {
 			this.tab = tabNr;
+		},
+
+		// dropzone
+		dzSuccess: function dzSuccess() {},
+
+		// cropper
+		openCropper: function openCropper() {
+			this.tabSwitch(2);
 		},
 		insert: function insert(file) {
 			this.editor.insertContent('<img class="wysiwyg-image-' + file.id + '" src="' + file.full + '">');
 			this.close();
 		},
-		dzSuccess: function dzSuccess() {},
 		setImage: function setImage(url) {
 			this.tabSwitch(2);
 			this.imgSrc = url;
+			this.$refs.cropper.replace(url);
+		},
+		manual: function manual() {
 			this.$refs.cropper.replace(this.imgSrc);
 		},
-		// setImage (e) {
-		//        const file = e.target.files[0];
-
-		//        if (!file.type.includes('image/')) {
-		//            alert('Please select an image file');
-		//            return;
-		//        }
-
-		//        if (typeof FileReader === 'function') {
-		//            const reader = new FileReader();
-
-		//            reader.onload = (event) => {
-		//                this.imgSrc = event.target.result;
-		//                // rebuild cropperjs with the updated source
-		//                this.$refs.cropper.replace(event.target.result);
-		//            };
-
-		//            reader.readAsDataURL(file);
-		//        } else {
-		//            alert('Sorry, FileReader API not supported');
-		//        }
-		//    },
 		cropImage: function cropImage() {
 			// get image data for post processing, e.g. upload or setting image src
 			this.cropImg = this.$refs.cropper.getCroppedCanvas().toDataURL();
@@ -43346,17 +43331,19 @@ Vue.component('vue-cropper', __WEBPACK_IMPORTED_MODULE_1_vue_cropperjs___default
 			// guess what this does :)
 			this.$refs.cropper.rotate(1);
 		},
-		flipHorizontal: function flipHorizontal() {
+		cropperFlipHorizontal: function cropperFlipHorizontal() {
 			this.scaleX = this.scaleX == 1 ? -1 : 1;
 			this.$refs.cropper.scaleX(this.scaleX);
 		},
-		flipVertical: function flipVertical() {
+		cropperFlipVertical: function cropperFlipVertical() {
 			this.scaleY = this.scaleY == 1 ? -1 : 1;
 			this.$refs.cropper.scaleY(this.scaleY);
 		},
 		cropperReset: function cropperReset() {
 			this.$refs.cropper.reset();
 		},
+
+		// common
 		browserWidth: function browserWidth() {
 			return $(window).width();
 		},
@@ -47482,6 +47469,7 @@ var render = function() {
                             "check-cross-origin": false,
                             "auto-crop-area": 1,
                             "aspect-ratio": 16 / 9,
+                            src: this.imgSrc,
                             alt: "Source Image"
                           }
                         })
@@ -47531,7 +47519,7 @@ var render = function() {
                                   {
                                     on: {
                                       click: function($event) {
-                                        _vm.flipVertical()
+                                        _vm.cropperFlipVertical()
                                       }
                                     }
                                   },
@@ -47545,7 +47533,7 @@ var render = function() {
                                   {
                                     on: {
                                       click: function($event) {
-                                        _vm.flipHorizontal()
+                                        _vm.cropperFlipHorizontal()
                                       }
                                     }
                                   },
