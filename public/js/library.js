@@ -43252,12 +43252,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 Vue.component('vue-dropzone', __webpack_require__(48));
 
 Vue.component('vue-cropper', __WEBPACK_IMPORTED_MODULE_1_vue_cropperjs___default.a);
-// Vue.component('vue-cropper', require('vue-cropperjs'));
 /* harmony default export */ __webpack_exports__["default"] = ({
 	data: function data() {
 		return {
@@ -43313,10 +43320,6 @@ Vue.component('vue-cropper', __WEBPACK_IMPORTED_MODULE_1_vue_cropperjs___default
 		setImage: function setImage(url) {
 			this.tabSwitch(2);
 			this.imgSrc = url;
-			this.$refs.cropper.replace(url);
-		},
-		manual: function manual() {
-			this.$refs.cropper.replace(this.imgSrc);
 		},
 		cropImage: function cropImage() {
 			// get image data for post processing, e.g. upload or setting image src
@@ -43341,6 +43344,12 @@ Vue.component('vue-cropper', __WEBPACK_IMPORTED_MODULE_1_vue_cropperjs___default
 		},
 		cropperReset: function cropperReset() {
 			this.$refs.cropper.reset();
+		},
+		cropperZoomIn: function cropperZoomIn() {
+			this.$refs.cropper.zoom(0.1);
+		},
+		cropperZoomOut: function cropperZoomOut() {
+			this.$refs.cropper.zoom(-0.1);
 		},
 
 		// common
@@ -43625,7 +43634,6 @@ var CropperComponent = _vue2.default.extend({
 var VueCropper = _vue2.default.component('vue-cropper', CropperComponent);
 
 exports.default = VueCropper;
-
 
 /***/ }),
 /* 50 */
@@ -47489,6 +47497,36 @@ var render = function() {
                                   {
                                     on: {
                                       click: function($event) {
+                                        _vm.cropperZoomOut()
+                                      }
+                                    }
+                                  },
+                                  [_c("i", { staticClass: "fa fa-minus" })]
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c("li", [
+                                _c(
+                                  "button",
+                                  {
+                                    on: {
+                                      click: function($event) {
+                                        _vm.cropperZoomIn()
+                                      }
+                                    }
+                                  },
+                                  [_c("i", { staticClass: "fa fa-plus" })]
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c("li", { staticClass: "divider" }),
+                              _vm._v(" "),
+                              _c("li", [
+                                _c(
+                                  "button",
+                                  {
+                                    on: {
+                                      click: function($event) {
                                         _vm.cropperRotateLeft()
                                       }
                                     }
@@ -47539,7 +47577,9 @@ var render = function() {
                                   },
                                   [_c("i", { staticClass: "fa fa-arrows-h" })]
                                 )
-                              ])
+                              ]),
+                              _vm._v(" "),
+                              _c("li", { staticClass: "divider" })
                             ]
                           )
                         : _vm._e()

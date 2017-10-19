@@ -50,6 +50,13 @@
 						<div class="library-footer">
 							<ul class="list-unstyled list-horizontal" v-if="imgSrc">
 								<li>
+									<button v-on:click="cropperZoomOut()"><i class="fa fa-minus"></i></button>
+								</li>
+								<li>
+									<button v-on:click="cropperZoomIn()"><i class="fa fa-plus"></i></button>
+								</li>
+								<li class="divider"></li>
+								<li>
 									<button v-on:click="cropperRotateLeft()"><i class="fa fa-undo"></i></button>
 								</li>
 								<li>
@@ -62,6 +69,7 @@
 								<li>
 									<button v-on:click="cropperFlipHorizontal()"><i class="fa fa-arrows-h"></i></button>
 								</li>
+								<li class="divider"></li>
 							</ul>
 						</div>
 				    </div>
@@ -76,7 +84,6 @@
 	Vue.component('vue-dropzone', require('vue2-dropzone'));
 	import vCropper from 'vue-cropperjs';
 	Vue.component( 'vue-cropper', vCropper );
-	// Vue.component('vue-cropper', require('vue-cropperjs'));
     export default {
     	data: function() {
     		return {
@@ -137,10 +144,6 @@
     		setImage: function(url) {
     			this.tabSwitch(2);
     			this.imgSrc = url;
-	    		this.$refs.cropper.replace(url);
-    		},
-    		manual() {
-    			this.$refs.cropper.replace(this.imgSrc);
     		},
 	        cropImage () {
 	            // get image data for post processing, e.g. upload or setting image src
@@ -164,6 +167,12 @@
 	        },
 	        cropperReset: function() {
 	        	this.$refs.cropper.reset();
+	        },
+	        cropperZoomIn: function() {
+	        	this.$refs.cropper.zoom(0.1);
+	        },
+	        cropperZoomOut: function() {
+	        	this.$refs.cropper.zoom(-0.1);
 	        },
 
 	        // common

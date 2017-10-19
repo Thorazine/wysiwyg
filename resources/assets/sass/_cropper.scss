@@ -2,4 +2,8 @@
 	> img {
 		height: calc(100vh - 100px);
 	}
+
+	.cropper-crop-box {
+		z-index: 1;
+	}
 }

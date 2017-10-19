@@ -8360,7 +8360,7 @@ button.close {
 }
 
 .list-horizontal li.divider {
-  width: 0px;
+  width: 2px;
   height: 28px;
   position: relative;
 }
@@ -8372,6 +8372,10 @@ button.close {
   top: 10px;
   left: 0px;
   height: 27px;
+}
+
+.list-horizontal li > button {
+  width: 32px;
 }
 
 .library {
@@ -8402,6 +8406,7 @@ button.close {
   top: 0px;
   left: 0px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  padding: 0 10px;
 }
 
 .library-body.dropzone {
@@ -8423,6 +8428,7 @@ button.close {
   bottom: 0px;
   left: 0px;
   border-top: 1px solid rgba(0, 0, 0, 0.2);
+  padding: 0 10px;
 }
 
 .library-close {
@@ -8446,6 +8452,10 @@ button.close {
 
 .cropper > img {
   height: calc(100vh - 100px);
+}
+
+.cropper .cropper-crop-box {
+  z-index: 1;
 }
 
 .mce-tinymce {
