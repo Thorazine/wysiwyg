@@ -22,8 +22,19 @@
 			}
 
 			> button {
-				width: 32px;
+				width: 37px;
 			}
 		}
+	}
+}
+
+.alert {
+	&-vue {
+		z-index: 103;
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100%;
+		z-index: 102;
 	}
 }

@@ -6,3 +6,12 @@
 	opacity: 0;
 	transform: translateY(50px);
 }
+
+.fadetop-enter-active, .fadetop-leave-active {
+	transition: opacity .5s, transform .5s;
+}
+
+.fadetop-enter, .fadetop-leave-to {
+	opacity: 0;
+	transform: translateY(-50px);
+}

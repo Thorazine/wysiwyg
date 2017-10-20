@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 42);
+/******/ 	return __webpack_require__(__webpack_require__.s = 43);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -960,6 +960,12 @@ module.exports = Cancel;
 
 /***/ }),
 /* 9 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(16);
+
+/***/ }),
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11493,11 +11499,11 @@ module.exports = Vue$3;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1), __webpack_require__(34).setImmediate))
 
 /***/ }),
-/* 10 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-window._ = __webpack_require__(11);
+window._ = __webpack_require__(12);
 
 /**
  * We'll load jQuery and the Bootstrap jQuery plugin which provides support
@@ -11506,9 +11512,9 @@ window._ = __webpack_require__(11);
  */
 
 try {
-  window.$ = window.jQuery = __webpack_require__(13);
+  window.$ = window.jQuery = __webpack_require__(14);
 
-  __webpack_require__(14);
+  __webpack_require__(15);
 } catch (e) {}
 
 /**
@@ -11517,7 +11523,7 @@ try {
  * CSRF token as a header based on the value of the "XSRF" token cookie.
  */
 
-window.axios = __webpack_require__(15);
+window.axios = __webpack_require__(9);
 
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
@@ -11551,7 +11557,7 @@ if (token) {
 // });
 
 /***/ }),
-/* 11 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, module) {var __WEBPACK_AMD_DEFINE_RESULT__;/**
@@ -28640,10 +28646,10 @@ if (token) {
   }
 }.call(this));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1), __webpack_require__(12)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1), __webpack_require__(13)(module)))
 
 /***/ }),
-/* 12 */
+/* 13 */
 /***/ (function(module, exports) {
 
 module.exports = function(module) {
@@ -28671,7 +28677,7 @@ module.exports = function(module) {
 
 
 /***/ }),
-/* 13 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -38931,7 +38937,7 @@ return jQuery;
 
 
 /***/ }),
-/* 14 */
+/* 15 */
 /***/ (function(module, exports) {
 
 /*!
@@ -41314,12 +41320,6 @@ if (typeof jQuery === 'undefined') {
 
 
 /***/ }),
-/* 15 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(16);
-
-/***/ }),
 /* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -42440,10 +42440,33 @@ exports.clearImmediate = clearImmediate;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1), __webpack_require__(4)))
 
 /***/ }),
-/* 36 */,
+/* 36 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/**
+ * Generate a complete url
+ *
+ * @return string Url
+ */
+/* harmony default export */ __webpack_exports__["a"] = (function (relativeUrl) {
+
+	// If matches a domain, return a domain
+	var domains = {
+		'localhost': 'localhost/wysiwyg/public/'
+	};
+
+	if (typeof domains[window.location.hostname] !== 'undefined') {
+		return window.location.protocol + '//' + domains[window.location.hostname] + '/' + relativeUrl;
+	}
+	alert('Your domain has not been set.\nYou tried to connect with: ' + window.location.hostname + '.\nPlease add your domain in asset.js');
+});
+
+/***/ }),
 /* 37 */,
 /* 38 */,
-/* 39 */
+/* 39 */,
+/* 40 */
 /***/ (function(module, exports) {
 
 /*
@@ -42525,7 +42548,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 40 */
+/* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -42571,7 +42594,7 @@ var singleton = null;
 var	singletonCounter = 0;
 var	stylesInsertedAtTop = [];
 
-var	fixUrls = __webpack_require__(41);
+var	fixUrls = __webpack_require__(42);
 
 module.exports = function(list, options) {
 	if (typeof DEBUG !== "undefined" && DEBUG) {
@@ -42884,7 +42907,7 @@ function updateLink (link, options, obj) {
 
 
 /***/ }),
-/* 41 */
+/* 42 */
 /***/ (function(module, exports) {
 
 
@@ -42979,14 +43002,14 @@ module.exports = function (css) {
 
 
 /***/ }),
-/* 42 */
+/* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(43);
+module.exports = __webpack_require__(44);
 
 
 /***/ }),
-/* 43 */
+/* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
@@ -42996,9 +43019,9 @@ module.exports = __webpack_require__(43);
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-__webpack_require__(10);
+__webpack_require__(11);
 
-window.Vue = __webpack_require__(9);
+window.Vue = __webpack_require__(10);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -43006,7 +43029,7 @@ window.Vue = __webpack_require__(9);
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('library', __webpack_require__(44));
+Vue.component('library', __webpack_require__(45));
 
 var app = new Vue({
   el: '#app',
@@ -43014,15 +43037,15 @@ var app = new Vue({
 });
 
 /***/ }),
-/* 44 */
+/* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
-var normalizeComponent = __webpack_require__(45)
+var normalizeComponent = __webpack_require__(46)
 /* script */
-var __vue_script__ = __webpack_require__(46)
+var __vue_script__ = __webpack_require__(47)
 /* template */
-var __vue_template__ = __webpack_require__(53)
+var __vue_template__ = __webpack_require__(57)
 /* template functional */
   var __vue_template_functional__ = false
 /* styles */
@@ -43062,7 +43085,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 45 */
+/* 46 */
 /***/ (function(module, exports) {
 
 /* globals __VUE_SSR_CONTEXT__ */
@@ -43171,211 +43194,174 @@ module.exports = function normalizeComponent (
 
 
 /***/ }),
-/* 46 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__functions_dropzone_js__ = __webpack_require__(47);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_cropperjs__ = __webpack_require__(49);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_cropperjs___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_vue_cropperjs__);
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-
-Vue.component('vue-dropzone', __webpack_require__(48));
-
-Vue.component('vue-cropper', __WEBPACK_IMPORTED_MODULE_1_vue_cropperjs___default.a);
-/* harmony default export */ __webpack_exports__["default"] = ({
-	data: function data() {
-		return {
-			test: true,
-			visible: false,
-			tab: 1,
-			editor: null,
-			imgSrc: null,
-			cropImg: null,
-			scaleX: 1,
-			scaleY: 1,
-			token: $('meta[name="csrf-token"]').attr('content'),
-			dzFiles: [{
-				filename: 'Some name',
-				thumb: 'http://lorempixel.com/100/100',
-				full: 'http://localhost/wysiwyg/public/uploads/hd1.jpg',
-				id: 1,
-				type: 'image'
-			}, {
-				filename: 'Some name',
-				thumb: 'http://lorempixel.com/100/100',
-				full: 'http://localhost/wysiwyg/public/uploads/nature10.jpg',
-				id: 1,
-				type: 'image'
-			}]
-		};
-	},
-	methods: {
-		// popup + tabs
-		open: function open(event) {
-			this.tabSwitch(1);
-			this.editor = event.editor;
-			this.visible = true;
-		},
-		close: function close() {
-			this.visible = false;
-		},
-		tabSwitch: function tabSwitch(tabNr) {
-			this.tab = tabNr;
-		},
-
-		// dropzone
-		dzSuccess: function dzSuccess() {},
-
-		// cropper
-		openCropper: function openCropper() {
-			this.tabSwitch(2);
-		},
-		insert: function insert(file) {
-			this.editor.insertContent('<img class="wysiwyg-image-' + file.id + '" src="' + file.full + '">');
-			this.close();
-		},
-		setImage: function setImage(url) {
-			this.tabSwitch(2);
-			this.imgSrc = url;
-		},
-		cropImage: function cropImage() {
-			// get image data for post processing, e.g. upload or setting image src
-			this.cropImg = this.$refs.cropper.getCroppedCanvas().toDataURL();
-		},
-
-		cropperRotateLeft: function cropperRotateLeft() {
-			// guess what this does :)
-			this.$refs.cropper.rotate(-1);
-		},
-		cropperRotateRight: function cropperRotateRight() {
-			// guess what this does :)
-			this.$refs.cropper.rotate(1);
-		},
-		cropperFlipHorizontal: function cropperFlipHorizontal() {
-			this.scaleX = this.scaleX == 1 ? -1 : 1;
-			this.$refs.cropper.scaleX(this.scaleX);
-		},
-		cropperFlipVertical: function cropperFlipVertical() {
-			this.scaleY = this.scaleY == 1 ? -1 : 1;
-			this.$refs.cropper.scaleY(this.scaleY);
-		},
-		cropperReset: function cropperReset() {
-			this.$refs.cropper.reset();
-		},
-		cropperZoomIn: function cropperZoomIn() {
-			this.$refs.cropper.zoom(0.1);
-		},
-		cropperZoomOut: function cropperZoomOut() {
-			this.$refs.cropper.zoom(-0.1);
-		},
-
-		// common
-		browserWidth: function browserWidth() {
-			return $(window).width();
-		},
-		browserHeight: function browserHeight() {
-			return $(window).height() - 100;
-		}
-	},
-	mounted: function mounted() {
-		$('body').on('library-open', this.open);
-
-		console.log('Component mounted.');
-		// $(document).on("newMessage", () => {
-		// 	this.open
-		// });
-	}
-});
-
-/***/ }),
 /* 47 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* unused harmony default export */ var _unused_webpack_default_export = ({});
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_cropperjs__ = __webpack_require__(49);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_cropperjs___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue_cropperjs__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mixins_dropzone__ = __webpack_require__(53);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__mixins_cropper__ = __webpack_require__(54);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__functions_api__ = __webpack_require__(55);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__functions_asset__ = __webpack_require__(36);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__functions_helper__ = __webpack_require__(56);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+Vue.component('alert', __webpack_require__(64));
+Vue.component('vue-dropzone', __webpack_require__(48));
+
+Vue.component('vue-cropper', __WEBPACK_IMPORTED_MODULE_0_vue_cropperjs___default.a);
+
+
+
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      alerts: [],
+      alertType: 'danger',
+      visible: false,
+      tab: 1,
+      editor: null,
+      dropzoneUrl: 'http://localhost/wysiwyg/public/dropzone',
+      imgSrc: null,
+      cropImg: null,
+      scaleX: 1,
+      scaleY: 1,
+      token: $('meta[name="csrf-token"]').attr('content'),
+      dropzoneFiles: [{
+        filename: 'Some name',
+        thumb: 'http://localhost/wysiwyg/public/uploads/placeholder/100x100.jpg',
+        full: 'http://localhost/wysiwyg/public/uploads/original/hd1.jpg',
+        id: 1,
+        type: 'image'
+      }, {
+        filename: 'Some name',
+        thumb: 'http://localhost/wysiwyg/public/uploads/placeholder/100x100.jpg',
+        full: 'http://localhost/wysiwyg/public/uploads/original/nature10.jpg',
+        id: 1,
+        type: 'image'
+      }]
+    };
+  },
+  mixins: [__WEBPACK_IMPORTED_MODULE_1__mixins_dropzone__["a" /* default */], __WEBPACK_IMPORTED_MODULE_2__mixins_cropper__["a" /* default */]],
+  methods: {
+    // popup + tabs
+    libraryOpen: function libraryOpen(event) {
+      this.libraryTabSwitch(1);
+      this.editor = event.editor;
+      this.visible = true;
+    },
+    libraryClose: function libraryClose() {
+      this.visible = false;
+    },
+    libraryTabSwitch: function libraryTabSwitch(tabNr) {
+      this.tab = tabNr;
+    },
+
+    // cropper
+    libraryOpenCropper: function libraryOpenCropper(url) {
+      this.libraryTabSwitch(2);
+      this.cropperSetImage(url);
+    },
+    insert: function insert(file) {
+      this.editor.insertContent('<img width="' + file.width + '" height="' + file.height + '" class="wysiwyg-image-' + file.id + '" src="' + file.full + '">');
+      this.libraryClose();
+    },
+    changeAlert: function changeAlert() {
+      this.alerts = ['bla bla'];
+    }
+  },
+  mounted: function mounted() {
+    // register event
+    $('body').on('library-open', this.libraryOpen);
+  }
+});
 
 /***/ }),
 /* 48 */
@@ -43395,7 +43381,7 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _vue = __webpack_require__(9);
+var _vue = __webpack_require__(10);
 
 var _vue2 = _interopRequireDefault(_vue);
 
@@ -43634,6 +43620,7 @@ var CropperComponent = _vue2.default.extend({
 var VueCropper = _vue2.default.component('vue-cropper', CropperComponent);
 
 exports.default = VueCropper;
+
 
 /***/ }),
 /* 50 */
@@ -47320,7 +47307,7 @@ var transform;
 var options = {}
 options.transform = transform
 // add the styles to the DOM
-var update = __webpack_require__(40)(content, options);
+var update = __webpack_require__(41)(content, options);
 if(content.locals) module.exports = content.locals;
 // Hot Module Replacement
 if(false) {
@@ -47340,7 +47327,7 @@ if(false) {
 /* 52 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(39)(undefined);
+exports = module.exports = __webpack_require__(40)(undefined);
 // imports
 
 
@@ -47352,6 +47339,185 @@ exports.push([module.i, "/*!\n * Cropper.js v0.8.1\n * https://github.com/fengyu
 
 /***/ }),
 /* 53 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__functions_asset_js__ = __webpack_require__(36);
+
+
+/* harmony default export */ __webpack_exports__["a"] = ({
+    methods: {
+        dropzoneAdded: function dropzoneAdded(file) {
+            // this.$store.dispatch('maxFileUploads', file);
+
+            if (!this.$store.state.uploading) {
+                this.$store.state.uploading = true;
+            }
+
+            file.uploading = true;
+            $(file.previewElement).find('.dz-status').html('Bezig met uploaden');
+        },
+        dropzoneSuccess: function dropzoneSuccess(file, response) {
+            var _this = this;
+
+            // // this.$store.dispatch('hasCookie');
+
+            // set the values in the proper items
+            var newDocument = response;
+            file.DocumentReferenceId = response.DocumentReferenceId;
+
+            // Update the status
+            $(file.previewElement).find('.dz-status').html('Bezig met woorden tellen');
+
+            this.$store.dispatch('addToWaitingForCount');
+
+            // Get word count
+            axios({
+                method: 'get',
+                url: Object(__WEBPACK_IMPORTED_MODULE_0__functions_asset_js__["a" /* default */])('api/documents/count'),
+                params: {
+                    hashid: this.$store.state.hashid,
+                    lang: this.$store.state.lang,
+                    DocumentReferenceId: response.DocumentReferenceId
+                }
+            }).then(function (response) {
+                _this.$store.dispatch('subtractFromWaitingForCount');
+                file.AmountOfWords = response.data.AmountOfWords;
+                newDocument.AmountOfWords = response.data.AmountOfWords;
+                newDocument.file = file;
+                _this.$store.state.documents.push(newDocument);
+
+                file.uploading = false;
+                _this.$store.state.uploading = false;
+                $(file.previewElement).find('.dz-uploading-spinner').hide();
+                $(file.previewElement).find('.dz-document').show();
+                $(file.previewElement).find('.dz-document-words').html(response.data.AmountOfWords + ' woorden');
+                $(file.previewElement).hide();
+
+                var filesInQueue = _this.$store.state.dz.getQueuedFiles();
+                if (!filesInQueue.length) {
+                    _this.$store.dispatch('getOrder');
+                }
+            }).catch(function (error) {
+                _this.$store.dispatch('subtractFromWaitingForCount');
+                $(file.previewElement).find('.dz-uploading-spinner').hide();
+                $(file.previewElement).find('.dz-document').hide();
+                $(file.previewElement).find('.dz-error').show();
+            });
+        },
+        dropzoneQueueComplete: function dropzoneQueueComplete(file, xhr, formData) {
+            // Get the order
+            this.$store.state.uploading = false;
+        },
+        dropzoneManual: function dropzoneManual(file) {
+            var _this2 = this;
+
+            $.each(this.$store.state.documents, function (i, values) {
+                if (file.DocumentReferenceId == values.DocumentReferenceId) {
+                    _this2.$store.state.documents[i].file = file;
+                }
+            });
+
+            $(file.previewElement).find('.dz-uploading-spinner').hide();
+            $(file.previewElement).find('.dz-document').show();
+            $(file.previewElement).find('.dz-document-words').html(file.AmountOfWords + ' woorden');
+            $(file.previewElement).hide();
+        },
+        dropzoneRemove: function dropzoneRemove(file, error, xhr) {},
+        dropzoneError: function dropzoneError(file) {
+
+            if (file.xhr.status == 500) {
+                var response = JSON.parse(file.xhr.responseText);
+            }
+        },
+        dropzoneTemplate: function dropzoneTemplate() {
+            return '\n\t\t\t\t<div class="dz-preview dz-file-preview">\n\t\t\t\t\t<div class="dz-uploading">\n\t\t\t\t\t\t<div class="dz-uploading-spinner">\n\t\t\t\t\t\t\t<div class="dz-uploading-spinner-bar"></div>\n\t\t\t\t\t\t\t<div class="dz-status">Bezig met uploaden</div>\n\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\t\t\t\t<div class="dz-document">\n\t\t\t\t\t\t<div class="dz-document-title"><span data-dz-name></span></div>\n\t\t\t\t\t\t<div class="dz-document-words"></div>\n\t\t\t\t\t</div>\n\t\t\t\t\t<div class="dz-error">\n\t\t\t\t\t\t<span>Dit document kon niet verwerkt worden.</span>\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t\t';
+        }
+    }
+});
+
+/***/ }),
+/* 54 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+// import asset from './../functions/asset.js';
+
+/* harmony default export */ __webpack_exports__["a"] = ({
+    methods: {
+        cropperSetImage: function cropperSetImage(url) {
+            this.imgSrc = url;
+        },
+        cropperCropImage: function cropperCropImage() {
+            // get image data for post processing, e.g. upload or setting image src
+            this.cropImg = this.$refs.cropper.getCroppedCanvas().toDataURL();
+        },
+        cropperRotateLeft: function cropperRotateLeft() {
+            // guess what this does :)
+            this.$refs.cropper.rotate(-1);
+        },
+        cropperRotateRight: function cropperRotateRight() {
+            // guess what this does :)
+            this.$refs.cropper.rotate(1);
+        },
+        cropperFlipHorizontal: function cropperFlipHorizontal() {
+            this.scaleX = this.scaleX == 1 ? -1 : 1;
+            this.$refs.cropper.scaleX(this.scaleX);
+        },
+        cropperFlipVertical: function cropperFlipVertical() {
+            this.scaleY = this.scaleY == 1 ? -1 : 1;
+            this.$refs.cropper.scaleY(this.scaleY);
+        },
+        cropperReset: function cropperReset() {
+            this.$refs.cropper.reset();
+        },
+        cropperZoomIn: function cropperZoomIn() {
+            this.$refs.cropper.zoom(0.1);
+        },
+        cropperZoomOut: function cropperZoomOut() {
+            this.$refs.cropper.zoom(-0.1);
+        }
+    }
+});
+
+/***/ }),
+/* 55 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_axios__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__asset_js__ = __webpack_require__(36);
+
+
+
+var api = {
+    // docGet (data) {
+    //     return axios.get(asset('api/documents/get'), {params: data});
+    // },
+};
+
+/* unused harmony default export */ var _unused_webpack_default_export = (api);
+
+/***/ }),
+/* 56 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+var helper = {
+   // common
+   browserWidth: function browserWidth() {
+      return $(window).width();
+   },
+   browserHeight: function browserHeight() {
+      return $(window).height() - 100;
+   }
+};
+
+/* unused harmony default export */ var _unused_webpack_default_export = (helper);
+
+/***/ }),
+/* 57 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -47377,6 +47543,8 @@ var render = function() {
           "div",
           { staticClass: "library-modal" },
           [
+            _c("alert", { attrs: { alerts: _vm.alerts, type: _vm.alertType } }),
+            _vm._v(" "),
             _c("transition", [
               _vm.tab == 1
                 ? _c(
@@ -47390,7 +47558,7 @@ var render = function() {
                             staticClass: "library-close",
                             on: {
                               click: function($event) {
-                                _vm.close()
+                                _vm.libraryClose()
                               }
                             }
                           },
@@ -47404,10 +47572,14 @@ var render = function() {
                           staticClass: "library-body",
                           attrs: {
                             id: "myVueDropzone",
-                            url: "https://httpbin.org/post",
+                            url: _vm.dropzoneUrl,
                             "use-font-awesome": true
                           },
-                          on: { "vdropzone-success": _vm.dzSuccess }
+                          on: {
+                            "vdropzone-success": function($event) {
+                              _vm.dropzoneSuccess()
+                            }
+                          }
                         },
                         [
                           _c("input", {
@@ -47415,22 +47587,22 @@ var render = function() {
                             domProps: { value: _vm.token }
                           }),
                           _vm._v(" "),
-                          _vm._l(_vm.dzFiles, function(file) {
+                          _vm._l(_vm.dropzoneFiles, function(file) {
                             return _c("div", { staticClass: "library-file" }, [
                               _c("img", {
                                 attrs: { src: file.thumb },
                                 on: {
                                   click: function($event) {
-                                    _vm.setImage(file.full)
+                                    _vm.libraryOpenCropper(file.full)
                                   }
                                 }
                               }),
                               _vm._v(" "),
                               _c("div", { staticClass: "library-file-name" }, [
                                 _vm._v(
-                                  "\n\t\t\t\t\t        \t\t" +
+                                  "\n\t\t\t\t        \t\t" +
                                     _vm._s(file.name) +
-                                    "\n\t\t\t\t\t        \t"
+                                    "\n\t\t\t\t        \t"
                                 )
                               ])
                             ])
@@ -47439,7 +47611,19 @@ var render = function() {
                         2
                       ),
                       _vm._v(" "),
-                      _c("div", { staticClass: "library-footer" })
+                      _c("div", { staticClass: "library-footer" }, [
+                        _c(
+                          "button",
+                          {
+                            on: {
+                              click: function($event) {
+                                _vm.changeAlert()
+                              }
+                            }
+                          },
+                          [_vm._v("Alert iets anders")]
+                        )
+                      ])
                     ],
                     1
                   )
@@ -47451,12 +47635,26 @@ var render = function() {
                 ? _c("div", { staticClass: "library-tab" }, [
                     _c("div", { staticClass: "library-header" }, [
                       _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-default",
+                          attrs: { type: "button" },
+                          on: {
+                            click: function($event) {
+                              _vm.libraryTabSwitch(1)
+                            }
+                          }
+                        },
+                        [_c("i", { staticClass: "fa fa-cloud-upload" })]
+                      ),
+                      _vm._v(" "),
+                      _c(
                         "div",
                         {
                           staticClass: "library-close",
                           on: {
                             click: function($event) {
-                              _vm.close()
+                              _vm.libraryClose()
                             }
                           }
                         },
@@ -47495,6 +47693,7 @@ var render = function() {
                                 _c(
                                   "button",
                                   {
+                                    staticClass: "btn btn-default",
                                     on: {
                                       click: function($event) {
                                         _vm.cropperZoomOut()
@@ -47509,6 +47708,7 @@ var render = function() {
                                 _c(
                                   "button",
                                   {
+                                    staticClass: "btn btn-default",
                                     on: {
                                       click: function($event) {
                                         _vm.cropperZoomIn()
@@ -47525,6 +47725,7 @@ var render = function() {
                                 _c(
                                   "button",
                                   {
+                                    staticClass: "btn btn-default",
                                     on: {
                                       click: function($event) {
                                         _vm.cropperRotateLeft()
@@ -47539,6 +47740,7 @@ var render = function() {
                                 _c(
                                   "button",
                                   {
+                                    staticClass: "btn btn-default",
                                     on: {
                                       click: function($event) {
                                         _vm.cropperRotateRight()
@@ -47555,6 +47757,7 @@ var render = function() {
                                 _c(
                                   "button",
                                   {
+                                    staticClass: "btn btn-default",
                                     on: {
                                       click: function($event) {
                                         _vm.cropperFlipVertical()
@@ -47569,6 +47772,7 @@ var render = function() {
                                 _c(
                                   "button",
                                   {
+                                    staticClass: "btn btn-default",
                                     on: {
                                       click: function($event) {
                                         _vm.cropperFlipHorizontal()
@@ -47601,6 +47805,158 @@ if (false) {
   module.hot.accept()
   if (module.hot.data) {
     require("vue-hot-reload-api")      .rerender("data-v-47797e96", module.exports)
+  }
+}
+
+/***/ }),
+/* 58 */,
+/* 59 */,
+/* 60 */,
+/* 61 */,
+/* 62 */,
+/* 63 */,
+/* 64 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(46)
+/* script */
+var __vue_script__ = __webpack_require__(65)
+/* template */
+var __vue_template__ = __webpack_require__(66)
+/* template functional */
+  var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/Alert.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {  return key !== "default" && key.substr(0, 2) !== "__"})) {  console.error("named exports are not supported in *.vue files.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-0d580112", Component.options)
+  } else {
+    hotAPI.reload("data-v-0d580112", Component.options)
+' + '  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 65 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      messages: []
+    };
+  },
+  props: ['alerts', 'type'],
+  methods: {
+    close: function close() {
+      this.messages = [];
+    }
+  },
+  watch: {
+    alerts: function alerts(value) {
+      var _this = this;
+
+      this.messages = value;
+      setTimeout(function () {
+        _this.messages = [];
+      }, 3000);
+    }
+  }
+});
+
+/***/ }),
+/* 66 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("transition", { attrs: { name: "fadetop" } }, [
+    _vm.messages.length
+      ? _c(
+          "div",
+          {
+            staticClass: "alert alert-vue alert-dismissible",
+            class: "alert-" + _vm.type
+          },
+          [
+            _c(
+              "button",
+              {
+                staticClass: "close",
+                attrs: { type: "button" },
+                on: {
+                  click: function($event) {
+                    _vm.close()
+                  }
+                }
+              },
+              [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+            ),
+            _vm._v(" "),
+            _c(
+              "ul",
+              _vm._l(_vm.messages, function(message) {
+                return _c("li", [
+                  _vm._v("\n\t\t\t\t" + _vm._s(message) + "\n\t\t\t")
+                ])
+              })
+            )
+          ]
+        )
+      : _vm._e()
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-0d580112", module.exports)
   }
 }
 

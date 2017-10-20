@@ -10,8 +10,8 @@ $(document).ready(function() {
 	tinymce.PluginManager.add('library', function(editor, url) {
 		// Add a button that opens a window
 		editor.addButton('library', {
-			text: 'Library',
-			icon: false,
+			// text: '<i class="fa fa-cloud-upload"></i>',
+			icon: 'mce-ico mce-i-image',
 			onclick: function() {
 				var event = jQuery.Event('library-open');
 				event.editor = editor;
