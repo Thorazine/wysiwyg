@@ -8416,10 +8416,23 @@ button.close {
   left: 0px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
   padding: 0 10px;
+  z-index: 99;
 }
 
 .library-header button {
   margin-top: 7px;
+}
+
+.library-header-center {
+  width: 200px;
+  text-align: center;
+  padding-top: 10px;
+  font-size: 18px;
+  font-weight: bold;
+  position: absolute;
+  left: 50%;
+  top: 0;
+  margin-left: -100px;
 }
 
 .library-body.dropzone {
@@ -8427,6 +8440,7 @@ button.close {
   background-color: rgba(255, 255, 255, 0.95);
   height: 100%;
   width: 100%;
+  overflow-y: scroll;
 }
 
 .library-body-full {
@@ -8442,6 +8456,15 @@ button.close {
   left: 0px;
   border-top: 1px solid rgba(0, 0, 0, 0.2);
   padding: 0 10px;
+  z-index: 99;
+}
+
+.library-footer .pagination {
+  margin: 7px auto;
+}
+
+.library-footer .pagination li {
+  cursor: pointer;
 }
 
 .library-close {
@@ -8463,6 +8486,12 @@ button.close {
   padding: 5px;
 }
 
+.library-acceptfile {
+  position: absolute;
+  right: 10px;
+  top: 6px;
+}
+
 .cropper > img {
   height: calc(100vh - 100px);
 }
@@ -8474,6 +8503,48 @@ button.close {
 .mce-tinymce {
   -webkit-box-sizing: border-box !important;
           box-sizing: border-box !important;
+}
+
+.dropzone.vue-dropzone.library-body > div:nth-child(n+25) {
+  display: none;
+}
+
+.dropzone.vue-dropzone.library-body .dz-message {
+  display: none;
+}
+
+.dropzone.vue-dropzone.library-body .dz-preview {
+  width: 100px;
+  height: 130px;
+  margin: 5px;
+  position: relative;
+}
+
+.dropzone.vue-dropzone.library-body .dz-preview .dz-image {
+  width: 100px;
+  height: 100px;
+  border-radius: 0px;
+}
+
+.dropzone.vue-dropzone.library-body .dz-preview .dz-image img {
+  max-width: 100px;
+  max-height: 100px;
+}
+
+.dropzone.vue-dropzone.library-body .dz-progress {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  top: 0;
+  left: 0;
+  background-color: rgba(255, 0, 0, 0.5);
+  z-index: 1;
+  margin: 0;
+  border-radius: 0px;
+}
+
+.dropzone.vue-dropzone.library-body .dz-error {
+  display: none;
 }
 
 .fade-enter-active,

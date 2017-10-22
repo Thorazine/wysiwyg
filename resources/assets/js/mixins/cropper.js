@@ -34,5 +34,12 @@ export default {
         cropperZoomOut: function() {
         	this.$refs.cropper.zoom(-0.1);
         },
+        cropperCrop: function(e) {
+        	this.cropData = e;
+        },
+        cropperInsert: function() {
+        	var id = 1;
+        	this.editor.insertContent('<img width="'+this.cropData.detail.width+'" height="'+this.cropData.detail.height+'" class="left wysiwyg-image-'+id+'" src="'+this.$refs.cropper.getCroppedCanvas().toDataURL()+'">');
+        }
     }
 }

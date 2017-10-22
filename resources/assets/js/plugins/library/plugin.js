@@ -42,15 +42,16 @@ $(document).ready(function() {
 			{title: 'Full', value: 'full'},
 			{title: 'Right', value: 'right'}
 		],
+		image_dimensions: false,
 		plugins: [
-		    "advlist lists link image print hr anchor",
+		    "advlist lists link print hr anchor",
 		    "searchreplace visualblocks visualchars code fullscreen",
 		    "media nonbreaking contextmenu directionality library",
 		    "paste textcolor colorpicker textpattern imagetools noneditable"
 		],
 		menubar: "insert edit tools",
-		toolbar1: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent",
-		toolbar2: "link image media | forecolor backcolor | fullscreen | library",
+		toolbar1: "undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent",
+		toolbar2: "link media | forecolor backcolor | fullscreen | library | code",
 		media_live_embeds: true,
 		media_dimensions: false,
 		media_poster: false,
@@ -93,25 +94,25 @@ $(document).ready(function() {
 		    }
 		},
 		file_picker_types: 'file image media',
-		images_upload_handler: function (blobInfo, successCallback, failureCallbck) {
+		// images_upload_handler: function (blobInfo, successCallback, failureCallbck) {
 
-			formData = new FormData();
-		    formData.append('file', blobInfo.blob(), blobInfo.filename());
+		// 	formData = new FormData();
+		//     formData.append('file', blobInfo.blob(), blobInfo.filename());
 
-			$.ajax({
-				url: BASE_URL+'/image',
-				data: formData,
-				processData: false,
-				contentType: false,
-				type: 'POST',
-				success: function(data){
-					successCallback(data.url);
-				},
-				error() {
-					failureCallbck('HTTP Error: gvd');
-				}
-			});
-		},
+		// 	$.ajax({
+		// 		url: BASE_URL+'/image',
+		// 		data: formData,
+		// 		processData: false,
+		// 		contentType: false,
+		// 		type: 'POST',
+		// 		success: function(data){
+		// 			successCallback(data.url);
+		// 		},
+		// 		error() {
+		// 			failureCallbck('HTTP Error: gvd');
+		// 		}
+		// 	});
+		// },
 	});
 
 

@@ -13,8 +13,9 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+// Route::middleware('auth:api')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
 
-Route::post('dropzone', 'MediaController@upload')->name('api.media.upload');
+Route::post('media/upload', 'Api\MediaController@upload')->name('api.media.upload');
+Route::get('media', 'Api\MediaController@index')->name('api.media');

@@ -5,6 +5,9 @@ const api = {
     // docGet (data) {
     //     return axios.get(asset('api/documents/get'), {params: data});
     // },
+    mediaGet(data) {
+    	return axios.get('http://localhost/wysiwyg/public/api/media', {params: data});
+    }
 }
 
 export default api;

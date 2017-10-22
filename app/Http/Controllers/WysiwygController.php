@@ -4,18 +4,18 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Wysiwyg;
-use App\Models\Image;
+use App\Models\Media;
 
 class WysiwygController extends Controller
 {
 
 	private $wysiwyg;
-	private $image;
+	private $media;
 
-	public function __construct(Wysiwyg $wysiwyg, Image $image)
+	public function __construct(Wysiwyg $wysiwyg, Media $media)
 	{
 		$this->wysiwyg = $wysiwyg;
-		$this->image = $image;
+		$this->Media = $media;
 	}
 
 

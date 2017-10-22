@@ -6,26 +6,47 @@
 	    		<transition>
 		    		<div class="library-tab" v-if="tab == 1">
 				        <div class="library-header">
+				        	<span class="library-header-center">{{ trans('cms.library.upload-files') }}</span>
 				        	<div class="library-close" v-on:click="libraryClose()">&times;</div>
 				        </div>
 			        	<vue-dropzone
 			        		class="library-body"
 			        		id="myVueDropzone"
+			        		:accepted-file-types="acceptedFileTypes"
 			        		:url="dropzoneUrl"
 			        		:use-font-awesome="true"
-			        		v-on:vdropzone-success="dropzoneSuccess()">
+			        		:preview-template="dropzoneTemplate"
+			        		v-on:vdropzone-success="dropzoneSuccess"
+			        		v-on:vdropzone-error="dropzoneError"
+			        		v-on:upload-progress="dropzoneProgress">
 					        <input type="hidden" name="_token" :value="token">
 
-					        <div class="library-file" v-for="file in dropzoneFiles">
-					        	<img :src="file.thumb" v-on:click="libraryOpenCropper(file.full)">
-					        	<div class="library-file-name">
-					        		{{ file.name }}
-					        	</div>
-					        </div>
+					        <div class="dz-preview dz-file-preview" v-for="file in dropzoneFiles">
+								<div class="dz-image" v-on:click="libraryOpenCropper(file.full)">
+								    <img data-dz-thumbnail :src="file.thumb" />
+								</div>
+								<div class="dz-name">
+									<span data-dz-name>{{ file.filename }}</span>
+								</div>
+							</div>
 
 					    </vue-dropzone>
 				        <div class="library-footer">
-				        	<button v-on:click="changeAlert()">Alert iets anders</button>
+				        	<ul class="pagination">
+				        		<li :class="{disabled : (paginationSelected == 1)}">
+				        			<a v-on:click="libraryGetMedia(1)" aria-label="Previous">
+					        			<span aria-hidden="true">&laquo;</span>
+					        		</a>
+				        		</li>
+				        		<li v-for="pagination in paginationCount" :class="{disabled : (pagination == paginationSelected)}">
+				        			<a v-on:click="libraryGetMedia(pagination)">{{ pagination }}</a>
+				        		</li>
+				        		<li :class="{disabled : (paginationSelected == paginationCount)}">
+				        			<a v-on:click="libraryGetMedia(paginationCount)" aria-label="Next">
+					        			<span aria-hidden="true">&raquo;</span>
+					        		</a>
+				        		</li>
+				        	</ul>
 				        </div>
 				    </div>
 				</transition>
@@ -35,6 +56,7 @@
 				    		<button type="button" class="btn btn-default" v-on:click="libraryTabSwitch(1)">
 				    			<i class="fa fa-cloud-upload"></i>
 				    		</button>
+				    		<span class="library-header-center">{{ trans('cms.library.resize-images') }}</span>
 				        	<div class="library-close" v-on:click="libraryClose()">&times;</div>
 				        </div>
 				    	<div class="library-body library-body-full">
@@ -44,8 +66,9 @@
 		                        :check-orientation="false"
 						        :check-cross-origin="false"
 		                        :auto-crop-area="1"
-		                        :aspect-ratio="16/9"
+		                        :aspect-ratio="ratio"
 		                        :src="this.imgSrc"
+		                        :crop="cropperCrop"
 		                        alt="Source Image">
 		                    </vue-cropper>
 						</div>
@@ -73,6 +96,7 @@
 								</li>
 								<li class="divider"></li>
 							</ul>
+							<button class="btn btn-primary library-acceptfile" v-on:click="cropperInsert()">Use</button>
 						</div>
 				    </div>
 				</transition>
@@ -95,33 +119,24 @@
     export default {
     	data: function() {
     		return {
+    			upload: '',
     			alerts: [],
     			alertType: 'danger',
     			visible: false,
     			tab: 1,
     			editor: null,
-    			dropzoneUrl: 'http://localhost/wysiwyg/public/dropzone',
+    			dropzoneUrl: 'http://localhost/wysiwyg/public/api/media/upload',
+    			acceptedFileTypes: 'image/*,application/pdf',
     			imgSrc: null,
 	            cropImg: null,
+	            cropData: null,
+	            ratio: null,
 	            scaleX: 1,
 	            scaleY: 1,
     			token: $('meta[name="csrf-token"]').attr('content'),
-    			dropzoneFiles: [
-    				{
-    					filename: 'Some name',
-    					thumb: 'http://localhost/wysiwyg/public/uploads/placeholder/100x100.jpg',
-    					full: 'http://localhost/wysiwyg/public/uploads/original/hd1.jpg',
-    					id: 1,
-    					type: 'image',
-    				},
-    				{
-    					filename: 'Some name',
-    					thumb: 'http://localhost/wysiwyg/public/uploads/placeholder/100x100.jpg',
-    					full: 'http://localhost/wysiwyg/public/uploads/original/nature10.jpg',
-    					id: 1,
-    					type: 'image',
-    				},
-    			],
+    			dropzoneFiles: [],
+    			paginationCount: 0,
+    			paginationSelected: 0,
     		}
     	},
     	mixins: [
@@ -129,8 +144,13 @@
     		CropperMixin
     	],
     	methods: {
+    		// trans: function(string) {
+    		// 	console.log(window.i18n);
+    		// 	return _.get(window.i18n, string);
+    		// },
     		// popup + tabs
     		libraryOpen: function(event) {
+    			this.libraryGetMedia(1);
     			this.libraryTabSwitch(1);
     			this.editor = event.editor;
 				this.visible = true;
@@ -140,6 +160,16 @@
 			},
 			libraryTabSwitch: function(tabNr) {
 				this.tab = tabNr;
+			},
+			libraryGetMedia: function(page) {
+				this.paginationSelected = page;
+				api.mediaGet({page: page}).then((response) => {
+					this.dropzoneFiles = response.data.medias.data;
+					this.paginationCount = response.data.medias.last_page;
+				})
+				.catch((error) => {
+					console.log(error);
+				});
 			},
 
 			// cropper
@@ -158,6 +188,7 @@
         mounted() {
         	// register event
         	$('body').on('library-open', this.libraryOpen);
+        	this.upload = trans('cms.library.upload-files');
         }
     }
 </script>
