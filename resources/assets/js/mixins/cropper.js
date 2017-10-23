@@ -1,4 +1,5 @@
 // import asset from './../functions/asset.js';
+import api from '../functions/api';
 
 export default {
     methods: {
@@ -39,7 +40,18 @@ export default {
         },
         cropperInsert: function() {
         	var id = 1;
-        	this.editor.insertContent('<img width="'+this.cropData.detail.width+'" height="'+this.cropData.detail.height+'" class="left wysiwyg-image-'+id+'" src="'+this.$refs.cropper.getCroppedCanvas().toDataURL()+'">');
+
+        	// send new image dimensions to server
+        	api.mediaResize({
+        		x: this.cropData.detail.x,
+        		y: this.cropData.detail.y,
+        		width: this.cropData.detail.width,
+        		height: this.cropData.detail.height,
+        	}).then((response) => {
+        		this.editor.insertContent('<img width="'+this.cropData.detail.width+'" height="'+this.cropData.detail.height+'" class="left wysiwyg-image-'+response.data.data.id+'" src="'+this.$refs.cropper.getCroppedCanvas().toDataURL()+'">');
+        	});
+
+        	this.libraryClose();
         }
     }
 }

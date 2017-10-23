@@ -18,4 +18,6 @@ use Illuminate\Http\Request;
 // });
 
 Route::post('media/upload', 'Api\MediaController@upload')->name('api.media.upload');
-Route::get('media', 'Api\MediaController@index')->name('api.media');
+Route::get('media', 'Api\MediaController@index')->name('api.media.index');
+Route::get('media/edit', 'Api\MediaController@edit')->name('api.media.edit');
+Route::post('media/update', 'Api\MediaController@update')->name('api.media.update');

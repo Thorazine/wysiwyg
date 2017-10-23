@@ -50,9 +50,9 @@
 		}
 	}
 
-	&-body.dropzone {
-		padding: 60px 5px;
+	&-body, &-body.dropzone {
 		background-color: rgba($modal-content-bg, 0.95);
+		padding: 60px 5px;
 		height: 100%;
 		width: 100%;
 		overflow-y: scroll;
@@ -110,5 +110,26 @@
 		position: absolute;
 		right: 10px;
 		top: 6px;
+	}
+
+	&-edit {
+		width: 100%;
+		padding: 60px 0px;
+
+		&-preview {
+			margin-left: auto;
+			margin-right: auto;
+			max-width: 100%;
+			max-height: calc(100vh - 135px);
+			display: block;
+		}
+
+		&-current {
+			margin-bottom: 20px;
+
+			p {
+				margin-bottom: 0px;
+			}
+		}
 	}
 }

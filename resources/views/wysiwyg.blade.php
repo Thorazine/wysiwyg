@@ -8,7 +8,9 @@
 <body>
 	<div id="app">
 		<library></library>
-		<textarea id="wysiwyg1"></textarea>
+
+		<form action="{{ route('form.store') }}">
+		<textarea id="wysiwyg1" name="content"></textarea>
 		<textarea id="wysiwyg2"></textarea>
 	</div>
 	<script src="https://use.fontawesome.com/5daec6a801.js"></script>

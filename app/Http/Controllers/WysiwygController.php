@@ -24,7 +24,7 @@ class WysiwygController extends Controller
 		return view('wysiwyg');
 	}
 
-
+	// Standard image upload rout for internal library. Not used anymore
 	public function image(Request $request)
 	{
 		return response()->json([

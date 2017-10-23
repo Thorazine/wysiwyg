@@ -23,6 +23,12 @@
 
 					        <div class="dz-preview dz-file-preview" v-for="file in dropzoneFiles">
 								<div class="dz-image" v-on:click="libraryOpenCropper(file.full)">
+									<div class="dz-edit" v-on:click.stop="libraryEdit(file)">
+										<i class="fa fa-pencil"></i>
+									</div>
+									<div class="dz-delete" v-on:click.stop="libraryRemove(file)">
+										<i class="fa fa-trash"></i>
+									</div>
 								    <img data-dz-thumbnail :src="file.thumb" />
 								</div>
 								<div class="dz-name">
@@ -100,6 +106,104 @@
 						</div>
 				    </div>
 				</transition>
+				<transition>
+				    <div class="library-tab" v-if="tab == 3">
+				    	<div class="library-header">
+				    		<button type="button" class="btn btn-default" v-on:click="libraryTabSwitch(1)">
+				    			<i class="fa fa-angle-left"></i>
+				    		</button>
+				    		<span class="library-header-center">{{ trans('cms.library.edit-file') }}</span>
+				        	<div class="library-close" v-on:click="libraryClose()">&times;</div>
+				        </div>
+				    	<div class="library-body library-edit">
+				    		<div class="row">
+				    			<div class="col-sm-6">
+				    				<img class="library-edit-preview" :src="fileEdit.full">
+				    			</div>
+				    			<div class="col-sm-6">
+						    		<form class="form form-horizontal">
+						    			<div class="form-group">
+						    				<label class="col-sm-3 control-label">
+						    					{{ trans('cms.library.edit.filename') }}
+						    				</label>
+						    				<div class="col-sm-9">
+						    					<span class="form-text">{{ fileEdit.filename }}</span>
+						    				</div>
+						    			</div>
+						    			<div class="form-group">
+						    				<label class="col-sm-3 control-label">
+						    					{{ trans('cms.library.edit.filetype') }}
+						    				</label>
+						    				<div class="col-sm-9">
+						    					<span class="form-text">{{ fileEdit.filetype }}</span>
+						    				</div>
+						    			</div>
+						    			<div class="form-group">
+						    				<label class="col-sm-3 control-label">
+						    					{{ trans('cms.library.edit.uploaded') }}
+						    				</label>
+						    				<div class="col-sm-9">
+						    					<span class="form-text">{{ fileEdit.uploaded }}</span>
+						    				</div>
+						    			</div>
+						    			<div class="form-group">
+						    				<label class="col-sm-3 control-label">
+						    					{{ trans('cms.library.edit.filesize') }}
+						    				</label>
+						    				<div class="col-sm-9">
+						    					<span class="form-text">{{ fileEdit.filesize }} KB</span>
+						    				</div>
+						    			</div>
+						    			<div class="form-group">
+						    				<label class="col-sm-3 control-label">
+						    					{{ trans('cms.library.edit.dimensions') }}
+						    				</label>
+						    				<div class="col-sm-9">
+						    					<span class="form-text">{{ fileEdit.width }} × {{ fileEdit.height }}</span>
+						    				</div>
+						    			</div>
+
+						    			<div class="form-group">
+						    				<label class="col-sm-3 control-label">
+						    					{{ trans('cms.library.edit.title') }}
+						    				</label>
+						    				<div class="col-sm-9">
+						    					<input type="text" class="form-control" :placeholder="trans('cms.library.edit.title')">
+						    				</div>
+						    			</div>
+						    			<div class="form-group">
+						    				<label class="col-sm-3 control-label">
+						    					{{ trans('cms.library.edit.alt') }}
+						    				</label>
+						    				<div class="col-sm-9">
+						    					<input type="text" class="form-control" :placeholder="trans('cms.library.edit.alt')">
+						    				</div>
+						    			</div>
+						    			<div class="form-group">
+						    				<label class="col-sm-3 control-label">
+						    					{{ trans('cms.library.edit.copyright') }}
+						    				</label>
+						    				<div class="col-sm-9">
+						    					<input type="text" class="form-control" :placeholder="trans('cms.library.edit.copyright')">
+						    				</div>
+						    			</div>
+						    			<div class="form-group">
+						    				<label class="col-sm-3 control-label">
+						    					{{ trans('cms.library.edit.photographer') }}
+						    				</label>
+						    				<div class="col-sm-9">
+						    					<input type="text" class="form-control" :placeholder="trans('cms.library.edit.photographer')">
+						    				</div>
+						    			</div>
+						    		</form>
+						    	</div>
+						    </div>
+						</div>
+						<div class="library-footer">
+							<button class="btn btn-primary library-acceptfile" v-on:click="cropperInsert()">{{ trans('cms.library.edit.update') }}</button>
+						</div>
+				    </div>
+				</transition>
 		    </div>
 	    </div>
 	</transition>
@@ -137,6 +241,7 @@
     			dropzoneFiles: [],
     			paginationCount: 0,
     			paginationSelected: 0,
+    			fileEdit: {},
     		}
     	},
     	mixins: [
@@ -170,6 +275,15 @@
 				.catch((error) => {
 					console.log(error);
 				});
+			},
+			libraryEdit: function(file) {
+				api.mediaEdit({id: file.id}).then((response) => {
+					this.fileEdit = response.data.data;
+					this.libraryTabSwitch(3);
+				});
+			},
+			libraryRemove: function(file) {
+
 			},
 
 			// cropper

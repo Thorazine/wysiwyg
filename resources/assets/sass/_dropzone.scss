@@ -42,5 +42,36 @@
 		&-error {
 			display: none;
 		}
+
+		&-image {
+			position: relative;
+		}
+
+		&-edit, &-delete {
+			position: absolute;
+			top: 0;
+			width: 20px;
+			height: 20px;
+			background-color: rgba(0,0,0,0.5);
+			text-align: center;
+			cursor: pointer;
+			transition: all 0.5s;
+
+			.fa {
+				cursor: pointer;
+			}
+
+			&:hover {
+				background-color: rgba(0,0,0,0.75);
+			}
+		}
+
+		&-edit {
+			left: 0px;
+		}
+
+		&-delete {
+			right: 0px;
+		}
 	}
 }

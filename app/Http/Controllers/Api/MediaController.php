@@ -29,6 +29,28 @@ class MediaController extends Controller
 	}
 
 
+	public function edit(Request $request)
+	{
+		$media = (new Media)
+			->where('id', $request->id)
+			->firstOrFail();
+
+		return response()->json([
+			'data' => $media,
+		], 200);
+	}
+
+
+	public function update(Request $request)
+	{
+		$media = (new Media)->find($request->id);
+		$media->filename = $request->filename;
+		$media->save();
+
+		return response()->json([], 200);
+	}
+
+
     public function upload(Request $request)
     {
     	// bump the memory limit so we can do some nice rendering

@@ -47,11 +47,12 @@ $(document).ready(function() {
 		    "advlist lists link print hr anchor",
 		    "searchreplace visualblocks visualchars code fullscreen",
 		    "media nonbreaking contextmenu directionality library",
-		    "paste textcolor colorpicker textpattern imagetools noneditable"
+		    "paste textcolor colorpicker textpattern noneditable"
 		],
-		menubar: "insert edit tools",
-		toolbar1: "undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent",
-		toolbar2: "link media | forecolor backcolor | fullscreen | library | code",
+		// menubar: "insert edit tools",
+		menubar: '',
+		toolbar1: "undo redo styleselect bold italic bullist numlist alignleft aligncenter alignright alignjustify link unlink media",
+		toolbar2: "outdent indent forecolor backcolor library fullscreen code",
 		media_live_embeds: true,
 		media_dimensions: false,
 		media_poster: false,
